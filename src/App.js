@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import GeneralForm from './components/GeneralForm';
 import General from './components/General';
-import Education from './components/education';
+import Education from './components/Education';
+import EducationForm from './components/EducationForm';
 
 class App extends Component {
   constructor(props) {
@@ -18,13 +19,15 @@ class App extends Component {
         schoolName: '',
         degree: '',
         startYear: '',
-        endYear: ''
+        endYear: '',
+        done: false
       }
     }
 
     this.handleChangeGeneral = this.handleChangeGeneral.bind(this);
     this.handleChangeEducation = this.handleChangeEducation.bind(this);
     this.handleSubmitGeneral = this.handleSubmitGeneral.bind(this);
+    this.handleSubmitEducation = this.handleSubmitEducation.bind(this);
     this.buttonControl = this.buttonControl.bind(this);
   }
   handleChangeGeneral(e) {
@@ -57,17 +60,16 @@ class App extends Component {
         done: !this.state.generalInfo.done
       }
     }))
-      console.log("state:", this.state)
   }
   handleSubmitEducation(e) {
     e.preventDefault();
     this.setState({
-      ...this.state.generalInfo,
       schoolInfo: {
         schoolName: this.state.schoolInfo.schoolName,
         degree: this.state.schoolInfo.degree,
         startYear: this.state.schoolInfo.startYear,
-        endYear: this.state.schoolInfo.endYear
+        endYear: this.state.schoolInfo.endYear,
+        done: !this.state.schoolInfo.done
       }
     })
   }
@@ -79,18 +81,22 @@ class App extends Component {
     }
   }
   render() {
+      const { name, email, phone } = this.state.generalInfo;
+      const { schoolName, degree, startYear, endYear } = this.state.schoolInfo;
     return (
-      <div>
+      <div className="main">
         <h1>Enter your information</h1>
-        {this.state.generalInfo.done ? <General /> : 
-          <form onSubmit={this.handleSubmitGeneral}>
-          <GeneralForm handleChangeGeneral={this.handleChangeGeneral}/>
+        <form onSubmit={this.handleSubmitGeneral} className="general--form">
+          {this.state.generalInfo.done ? <General name={name} email={email} phone={phone}/> :
+            <GeneralForm handleChangeGeneral={this.handleChangeGeneral}/>
+          }
           {!this.state.generalInfo.done ? this.buttonControl(false) : this.buttonControl(true)}
         </form>
-        }
         
-        <form onSubmit={this.handleSubmitEducation}>
-          <Education handleChangeEducation={this.handleChangeEducation}/>
+        <form onSubmit={this.handleSubmitEducation} className="education--form">
+          {this.state.schoolInfo.done ? 
+          <Education schoolName={schoolName} degree={degree} startYear={startYear} endYear={endYear}/> 
+          : <EducationForm handleChangeEducation={this.handleChangeEducation}/>}
           {!this.state.schoolInfo.done ? this.buttonControl(false) : this.buttonControl(true)}
         </form>
       </div>
