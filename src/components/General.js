@@ -7,10 +7,10 @@ class General extends Component {
     render() {
         const { name, email, phone } = this.props;
         return(
-            <div>
-                <h2>{name}</h2>
-                <h2>{email}</h2>
-                <h2>{phone}</h2>
+            <div className="general--cv">
+                <h2>Name: {name}</h2>
+                <h2>Email: {email}</h2>
+                <h2>Phone: {phone}</h2>
             </div>
         )
     }
