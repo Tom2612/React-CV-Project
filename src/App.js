@@ -4,6 +4,8 @@ import GeneralForm from './components/GeneralForm';
 import General from './components/General';
 import Education from './components/Education';
 import EducationForm from './components/EducationForm';
+import Work from './components/Work';
+import WorkForm from './components/WorkForm';
 
 class App extends Component {
   constructor(props) {
@@ -21,11 +23,20 @@ class App extends Component {
         startYear: '',
         endYear: '',
         done: false
-      }
+      },
+      work: {
+        companyName: '', 
+        position: '', 
+        mainTasks:'', 
+        dateFrom: '', 
+        dateTo: ''
+      },
+      allWork: []
     }
 
     this.handleChangeGeneral = this.handleChangeGeneral.bind(this);
     this.handleChangeEducation = this.handleChangeEducation.bind(this);
+    this.handleChangeWork = this.handleChangeWork.bind(this);
     this.handleSubmitGeneral = this.handleSubmitGeneral.bind(this);
     this.handleSubmitEducation = this.handleSubmitEducation.bind(this);
     this.buttonControl = this.buttonControl.bind(this);
@@ -50,6 +61,17 @@ class App extends Component {
       }
     )
   }
+  handleChangeWork(e) {
+    const value = e.target.value;
+    this.setState({
+      work: {
+        ...this.state.work,
+        [e.target.name]: value
+        }
+      }
+    )
+    console.log(this.state.work)
+  }
   handleSubmitGeneral(e) {
     e.preventDefault();
     this.setState(({
@@ -73,6 +95,20 @@ class App extends Component {
       }
     })
   }
+  handleSubmitWork(e) {
+    e.preventDefault();
+    this.setState({
+      allWork: this.state.allWork.concat(this.state.work),
+      work: {
+        //all values to ''
+        companyName: '', 
+        position: '', 
+        mainTasks:'', 
+        dateFrom: '', 
+        dateTo: ''
+      }
+    })
+  }
   buttonControl(value) {
     if (value) {
       return <button>Edit</button>
@@ -83,22 +119,25 @@ class App extends Component {
   render() {
       const { name, email, phone } = this.state.generalInfo;
       const { schoolName, degree, startYear, endYear } = this.state.schoolInfo;
+      const { companyName, position, mainTasks, dateFrom, dateTo } = this.state.work;
     return (
       <div className="main">
         <h1>Enter your information</h1>
-        <form onSubmit={this.handleSubmitGeneral} className="general--form">
+        <form onSubmit={this.handleSubmitGeneral} className="form general--form">
           {this.state.generalInfo.done ? <General name={name} email={email} phone={phone}/> :
-            <GeneralForm handleChangeGeneral={this.handleChangeGeneral}/>
+            <GeneralForm handleChangeGeneral={this.handleChangeGeneral}  name={name} email={email} phone={phone}/>
           }
           {!this.state.generalInfo.done ? this.buttonControl(false) : this.buttonControl(true)}
         </form>
         
-        <form onSubmit={this.handleSubmitEducation} className="education--form">
+        <form onSubmit={this.handleSubmitEducation} className="form education--form">
           {this.state.schoolInfo.done ? 
           <Education schoolName={schoolName} degree={degree} startYear={startYear} endYear={endYear}/> 
-          : <EducationForm handleChangeEducation={this.handleChangeEducation}/>}
+          : <EducationForm handleChangeEducation={this.handleChangeEducation}  schoolName={schoolName} degree={degree} startYear={startYear} endYear={endYear}/>}
           {!this.state.schoolInfo.done ? this.buttonControl(false) : this.buttonControl(true)}
         </form>
+
+        <WorkForm />
       </div>
     )
   }
