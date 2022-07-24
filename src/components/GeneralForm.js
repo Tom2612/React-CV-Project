@@ -4,10 +4,10 @@ class General extends Component {
     constructor(props) {
         super(props);
     }
-    render () {
+    render() {
         const { name, email, phone } = this.props;
         return (
-            <div>   
+            <div className="general--form--input">   
                 <label htmlFor='name'>Enter your name</label>
                 <input 
                     type="text" 
