@@ -12,6 +12,7 @@ class Education extends Component {
                 <h2>degree: {degree}</h2>
                 <h2>Start Year: {startYear}</h2>
                 <h2>End Year: {endYear}</h2>
+                <button onClick={this.props.onSubmitEducation}>Edit</button>
             </div>
         )
     }
