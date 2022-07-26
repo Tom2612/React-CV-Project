@@ -19,13 +19,25 @@
 /* Form styles */
 .form {
   width: 80%;
+  border: 1px solid black;
   padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.form div {
+.form-title{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  /* align-self: flex-start; */
+}
+.form-title h2 {
+  margin-top: 10px;
+  grid-column: 2 / 3;
+  justify-self: start;
+}
+.form div:not(:first-child) {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 2fr 2fr 1fr;
@@ -46,13 +58,19 @@
 .form div input[type=month] {
   width: 50%;
 }
-.general--form {
+.form div textarea {
+  font-family: inherit;
+  margin-left: 5px;
+  width: 85%;
+}
+/* .general--form {
   border: 1px solid black;
 }
 .education--form {
   border: 1px solid black;
-}
+} */
 .submit-btn {
+  font-size: inherit;
   width: 20%;
   margin-top: 10px;
   padding: 5px;
