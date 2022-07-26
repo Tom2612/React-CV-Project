@@ -1,13 +1,75 @@
-body {
+@import url('https: //fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+.main {
+  width: 100%;
+  border: 1px solid black;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Form styles */
+.form {
+  width: 80%;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.form div {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+}
+.form div label {
+  grid-column: 2 / 3;
+  margin: 1rem;
+  font-size: 1.2rem;
+}
+.form div input {
+  padding: 4px;
+  grid-column: 3 / 4;
+  width: 85%;
+  align-self: center;
+  margin: 0.3rem;
+  font-size: 1.2rem;
+}
+.form div input[type=month] {
+  width: 50%;
+}
+.general--form {
+  border: 1px solid black;
+}
+.education--form {
+  border: 1px solid black;
+}
+.submit-btn {
+  width: 20%;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 50px;
+  border: none;
+}
+
+/* CV styles */
+.general--cv {
+  border: 1px solid black;
+  width: 80%;
+}
+
+.education--cv {
+  border: 1px solid black;
+  width: 80%;
+} 
+.education--form--cv {
+  border: 1px solid black;
 }
