@@ -11,6 +11,7 @@ class General extends Component {
                 <h2>Name: {name}</h2>
                 <h2>Email: {email}</h2>
                 <h2>Phone: {phone}</h2>
+                <button onClick={this.props.onSubmitGeneral}>Edit</button>
             </div>
         )
     }
