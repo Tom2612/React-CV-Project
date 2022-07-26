@@ -100,7 +100,6 @@ class App extends Component {
     this.setState({
       allWork: this.state.allWork.concat(this.state.work),
       work: {
-        //all values to ''
         companyName: '', 
         position: '', 
         mainTasks:'', 
@@ -108,7 +107,9 @@ class App extends Component {
         dateTo: ''
       }
     })
+    console.log(this.state.allWork)
   }
+
   buttonControl(value) {
     if (value) {
       return <button>Edit</button>
@@ -116,27 +117,53 @@ class App extends Component {
       return <button type="submit">Submit</button>
     }
   }
+  
   render() {
       const { name, email, phone } = this.state.generalInfo;
       const { schoolName, degree, startYear, endYear } = this.state.schoolInfo;
       const { companyName, position, mainTasks, dateFrom, dateTo } = this.state.work;
     return (
       <div className="main">
-        <h1>Enter your information</h1>
-        <form onSubmit={this.handleSubmitGeneral} className="form general--form">
-          {this.state.generalInfo.done ? <General name={name} email={email} phone={phone}/> :
-            <GeneralForm handleChangeGeneral={this.handleChangeGeneral}  name={name} email={email} phone={phone}/>
-          }
-          {!this.state.generalInfo.done ? this.buttonControl(false) : this.buttonControl(true)}
-        </form>
+        <h1>CV Maker</h1>
+        <h2>Enter your information below</h2>
         
-        <form onSubmit={this.handleSubmitEducation} className="form education--form">
+          {this.state.generalInfo.done ? 
+            <General 
+              className="cv" 
+              name={name} 
+              email={email} 
+              phone={phone}
+              onSubmitGeneral={this.handleSubmitGeneral}
+            /> :
+            <GeneralForm 
+              handleChangeGeneral={this.handleChangeGeneral} 
+              onSubmitGeneral={this.handleSubmitGeneral} 
+              name={name} 
+              email={email} 
+              phone={phone}
+            />
+          }
+        
           {this.state.schoolInfo.done ? 
-          <Education schoolName={schoolName} degree={degree} startYear={startYear} endYear={endYear}/> 
-          : <EducationForm handleChangeEducation={this.handleChangeEducation}  schoolName={schoolName} degree={degree} startYear={startYear} endYear={endYear}/>}
-          {!this.state.schoolInfo.done ? this.buttonControl(false) : this.buttonControl(true)}
-        </form>
-
+            <Education 
+              className="cv" 
+              onSubmitEducation={this.handleSubmitEducation}
+              schoolName={schoolName} 
+              degree={degree} 
+              startYear={startYear} 
+              endYear={endYear}
+            /> : 
+            <EducationForm 
+              handleChangeEducation={this.handleChangeEducation}  
+              onSubmitEducation={this.handleSubmitEducation}
+              schoolName={schoolName} 
+              degree={degree} 
+              startYear={startYear} 
+              endYear={endYear}
+            />
+          }
+        
+        <Work />
         <WorkForm />
       </div>
     )
