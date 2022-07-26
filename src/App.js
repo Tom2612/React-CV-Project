@@ -31,7 +31,22 @@ class App extends Component {
         dateFrom: '', 
         dateTo: ''
       },
-      allWork: []
+      allWork: [
+        {
+        companyName: 'Tesco', 
+        position: '', 
+        mainTasks:'', 
+        dateFrom: '', 
+        dateTo: ''
+      },
+      {
+        companyName: 'Asda', 
+        position: '', 
+        mainTasks:'', 
+        dateFrom: '', 
+        dateTo: ''
+      }
+      ]
     }
 
     this.handleChangeGeneral = this.handleChangeGeneral.bind(this);
@@ -39,6 +54,7 @@ class App extends Component {
     this.handleChangeWork = this.handleChangeWork.bind(this);
     this.handleSubmitGeneral = this.handleSubmitGeneral.bind(this);
     this.handleSubmitEducation = this.handleSubmitEducation.bind(this);
+    this.handleSubmitWork = this.handleSubmitWork.bind(this);
     this.buttonControl = this.buttonControl.bind(this);
   }
   handleChangeGeneral(e) {
@@ -70,7 +86,6 @@ class App extends Component {
         }
       }
     )
-    console.log(this.state.work)
   }
   handleSubmitGeneral(e) {
     e.preventDefault();
@@ -162,9 +177,22 @@ class App extends Component {
               endYear={endYear}
             />
           }
-        
-        <Work />
-        <WorkForm />
+            {/* Warning, the below will render infinitely! */}
+          {/* {this.state.allWork.length > 0 ?  */}
+          {/* <Work allWork={this.state.allWork}/> 
+          : <></>} */}
+          <Work allWork={this.state.allWork}/>
+          <WorkForm 
+            className="cv"
+            handleChangeWork={this.handleChangeWork}
+            onSubmitWork={this.handleSubmitWork}
+            companyName={companyName}
+            position={position}
+            mainTasks={mainTasks}
+            dateFrom={dateFrom}
+            dateTo={dateTo}
+          />
+          
       </div>
     )
   }
