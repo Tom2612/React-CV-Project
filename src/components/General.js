@@ -7,11 +7,11 @@ class General extends Component {
     render() {
         const { name, email, phone } = this.props;
         return(
-            <div className="general--cv">
-                <h2>Name: {name}</h2>
-                <h2>Email: {email}</h2>
-                <h2>Phone: {phone}</h2>
-                <button onClick={this.props.onSubmitGeneral}>Edit</button>
+            <div className="cv general--cv">
+                <h2 className="general--title">{name}</h2>
+                <hr></hr>
+                <h3>{email} | {phone}</h3>
+                <button onClick={this.props.onSubmitGeneral} className="edit-btn"><span>Edit</span></button>
             </div>
         )
     }
