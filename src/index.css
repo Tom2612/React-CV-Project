@@ -5,6 +5,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #F0F0F0;
+}
 .main {
   width: 100%;
   border: 1px solid black;
@@ -18,6 +21,7 @@
 
 /* Form styles */
 .form {
+  background-color: white;
   width: 80%;
   border: 1px solid black;
   padding-bottom: 1rem;
@@ -63,12 +67,6 @@
   margin-left: 5px;
   width: 85%;
 }
-/* .general--form {
-  border: 1px solid black;
-}
-.education--form {
-  border: 1px solid black;
-} */
 .submit-btn {
   font-size: inherit;
   width: 20%;
@@ -78,16 +76,71 @@
   border: none;
 }
 
-/* CV styles */
-.general--cv {
-  border: 1px solid black;
+/* General CV styles */
+.cv {
+  padding-left: 50px;
+  background-color: white;
   width: 80%;
+  border: 1px solid black;
+  display: grid;
+  
+}
+.section-title {
+  font-weight: 400;
+  color: #215868;
+  text-decoration: underline;
+}
+.cv h3 {
+  font-weight: 400;
+}
+.edit-btn {
+  font-family: sans-serif;
+  width: 40px;
+  height: 100%;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  justify-self: end;
+}
+.edit-btn span {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
 }
 
+/*Section specific styles */
+.general--cv {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.general--title {
+  padding-top: 2rem;
+  width: 100%;
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+}
+.general--cv hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  width: 100%;
+  justify-self: center;
+  grid-column: 1 / 4;
+  grid-row: 2;
+}
+.general--cv h3 {
+  margin-top: 5px;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
 .education--cv {
-  border: 1px solid black;
-  width: 80%;
-} 
-.education--form--cv {
-  border: 1px solid black;
+  text-align: start;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr;
+}
+.education--cv div {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  text-align: start;
+  justify-self: start;
 }
