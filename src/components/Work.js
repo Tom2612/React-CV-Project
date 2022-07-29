@@ -5,7 +5,6 @@ class Work extends Component {
         super(props);
     }
     render() {
-        // const { companyName, position, mainTasks, dateFrom, dateTo } = this.props;
         const { allWork } = this.props;
         return(
             <div className='cv work--cv'>
@@ -13,16 +12,12 @@ class Work extends Component {
                 { allWork.map((work) => {
                 return (
                     <div className="work--item" key={work.companyName}>
-                        <h2>{work.position} - {work.companyName}</h2>
-                        {/* <h2>Company Name: {work.companyName}</h2>
-                        <h2>Position Held: {work.position}</h2> */}
-                        <p>Main Tasks: {work.mainTasks}</p>
-                        <h3>Date from: {work.dateFrom}</h3>
-                        <h3>Date To: {work.dateTo}</h3>
+                        <h3><strong>{work.dateFrom.slice(0, 4)} - {work.dateTo.slice(0,4)}: </strong>{work.companyName}</h3>
+                        <h3 className="main-tasks">{work.position} | {work.mainTasks}</h3>
+                        <button onClick={this.props.onSubmitWork} className="edit-btn"><span>Edit</span></button>
                     </div>
                 )
             })}
-            <button onClick={this.props.onSubmitWork} className="edit-btn"><span>Edit</span></button>
             </div>
         )
     }
