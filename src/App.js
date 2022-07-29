@@ -6,22 +6,23 @@ import Education from './components/Education';
 import EducationForm from './components/EducationForm';
 import Work from './components/Work';
 import WorkForm from './components/WorkForm';
+import Footer from './components/Footer';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       generalInfo: {
-        name: '',
-        email: '',
-        phone: '',
+        name: 'Thomas Powell',
+        email: 'tom@tom',
+        phone: '123456',
         done: false
       },
       schoolInfo: {
-        schoolName: '',
-        degree: '',
-        startYear: '',
-        endYear: '',
+        schoolName: 'University of Life',
+        degree: 'BSc Chemistry',
+        startYear: '2013-09',
+        endYear: '2016-07',
         done: false
       },
       work: {
@@ -34,17 +35,10 @@ class App extends Component {
       allWork: [
         {
         companyName: 'Tesco', 
-        position: '', 
-        mainTasks:'', 
-        dateFrom: '', 
-        dateTo: ''
-      },
-      {
-        companyName: 'Asda', 
-        position: '', 
-        mainTasks:'', 
-        dateFrom: '', 
-        dateTo: ''
+        position: 'Sales Assistant', 
+        mainTasks:'Customer relations, cleaning, handling money', 
+        dateFrom: '2017-04', 
+        dateTo: '2018-09'
       }
       ]
     }
@@ -138,62 +132,64 @@ class App extends Component {
       const { schoolName, degree, startYear, endYear } = this.state.schoolInfo;
       const { companyName, position, mainTasks, dateFrom, dateTo } = this.state.work;
     return (
-      <div className="main">
-        <h1>CV Maker</h1>
-        <h2>Enter your information below</h2>
-        
-          {this.state.generalInfo.done ? 
-            <General 
-              className="cv" 
-              name={name} 
-              email={email} 
-              phone={phone}
-              onSubmitGeneral={this.handleSubmitGeneral}
-            /> :
-            <GeneralForm 
-              handleChangeGeneral={this.handleChangeGeneral} 
-              onSubmitGeneral={this.handleSubmitGeneral} 
-              name={name} 
-              email={email} 
-              phone={phone}
-            />
-          }
-        
-          {this.state.schoolInfo.done ? 
-            <Education 
-              className="cv" 
-              onSubmitEducation={this.handleSubmitEducation}
-              schoolName={schoolName} 
-              degree={degree} 
-              startYear={startYear} 
-              endYear={endYear}
-            /> : 
-            <EducationForm 
-              handleChangeEducation={this.handleChangeEducation}  
-              onSubmitEducation={this.handleSubmitEducation}
-              schoolName={schoolName} 
-              degree={degree} 
-              startYear={startYear} 
-              endYear={endYear}
-            />
-          }
-            {/* Warning, the below will render infinitely! */}
-          {/* {this.state.allWork.length > 0 ?  */}
-          {/* <Work allWork={this.state.allWork}/> 
-          : <></>} */}
-          <Work allWork={this.state.allWork}/>
-          <WorkForm 
-            className="cv"
-            handleChangeWork={this.handleChangeWork}
-            onSubmitWork={this.handleSubmitWork}
-            companyName={companyName}
-            position={position}
-            mainTasks={mainTasks}
-            dateFrom={dateFrom}
-            dateTo={dateTo}
-          />
+      <div className='body'>
+        <div className="main">
+          <h1>CV Maker</h1>
+          <h2>Enter your information below</h2>
+
+            {this.state.generalInfo.done ? 
+              <General 
+                className="cv" 
+                name={name} 
+                email={email} 
+                phone={phone}
+                onSubmitGeneral={this.handleSubmitGeneral}
+              /> :
+              <GeneralForm 
+                handleChangeGeneral={this.handleChangeGeneral} 
+                onSubmitGeneral={this.handleSubmitGeneral} 
+                name={name} 
+                email={email} 
+                phone={phone}
+              />
+            }
           
+            {this.state.schoolInfo.done ? 
+              <Education 
+                className="cv" 
+                onSubmitEducation={this.handleSubmitEducation}
+                schoolName={schoolName} 
+                degree={degree} 
+                startYear={startYear} 
+                endYear={endYear}
+              /> : 
+              <EducationForm 
+                handleChangeEducation={this.handleChangeEducation}  
+                onSubmitEducation={this.handleSubmitEducation}
+                schoolName={schoolName} 
+                degree={degree} 
+                startYear={startYear} 
+                endYear={endYear}
+              />
+            }
+            
+            <Work 
+              className="cv" 
+              allWork={this.state.allWork}
+            />
+            <WorkForm 
+              handleChangeWork={this.handleChangeWork}
+              onSubmitWork={this.handleSubmitWork}
+              companyName={companyName}
+              position={position}
+              mainTasks={mainTasks}
+              dateFrom={dateFrom}
+              dateTo={dateTo}
+            />
+        </div>
+        <Footer className="footer"/>
       </div>
+      
     )
   }
 }
