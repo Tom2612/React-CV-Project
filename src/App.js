@@ -4,25 +4,26 @@ import GeneralForm from './components/GeneralForm';
 import General from './components/General';
 import Education from './components/Education';
 import EducationForm from './components/EducationForm';
-import Work from './components/Work';
+import WorkContainer from './components/WorkContainer';
 import WorkForm from './components/WorkForm';
 import Footer from './components/Footer';
+import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       generalInfo: {
-        name: 'Thomas Powell',
-        email: 'tom@tom',
-        phone: '123456',
+        name: '',
+        email: '',
+        phone: '',
         done: false
       },
       schoolInfo: {
-        schoolName: 'University of Life',
-        degree: 'BSc Chemistry',
-        startYear: '2013-09',
-        endYear: '2016-07',
+        schoolName: '',
+        degree: '',
+        startYear: '',
+        endYear: '',
         done: false
       },
       work: {
@@ -30,17 +31,11 @@ class App extends Component {
         position: '', 
         mainTasks:'', 
         dateFrom: '', 
-        dateTo: ''
+        dateTo: '',
+        done: false
       },
-      allWork: [
-        {
-        companyName: 'Tesco', 
-        position: 'Sales Assistant', 
-        mainTasks:'Customer relations, cleaning, handling money', 
-        dateFrom: '2017-04', 
-        dateTo: '2018-09'
-      }
-      ]
+      allWork: [],
+      addWork: true
     }
 
     this.handleChangeGeneral = this.handleChangeGeneral.bind(this);
@@ -49,7 +44,9 @@ class App extends Component {
     this.handleSubmitGeneral = this.handleSubmitGeneral.bind(this);
     this.handleSubmitEducation = this.handleSubmitEducation.bind(this);
     this.handleSubmitWork = this.handleSubmitWork.bind(this);
+    this.handleEditWork = this.handleEditWork.bind(this);
     this.buttonControl = this.buttonControl.bind(this);
+    this.onSubmitClick = this.onSubmitClick.bind(this)
   }
   handleChangeGeneral(e) {
     const value = e.target.value;
@@ -106,19 +103,33 @@ class App extends Component {
   }
   handleSubmitWork(e) {
     e.preventDefault();
+    const newWork = {
+      ...this.state.work,
+      id: uuidv4()
+    }
     this.setState({
-      allWork: this.state.allWork.concat(this.state.work),
+      allWork: this.state.allWork.concat(newWork),
       work: {
         companyName: '', 
         position: '', 
         mainTasks:'', 
         dateFrom: '', 
-        dateTo: ''
+        dateTo: '',
+        done: !this.state.work.done
       }
     })
-    console.log(this.state.allWork)
   }
-
+  handleEditWork = (e, elementId) => {
+    const { name, value } = e.target;
+    this.setState({
+      allWork: this.state.allWork.map(work => {
+        if (work.id===elementId) {
+          work[name.toString()]= value
+        }
+        return work
+      })
+    })
+  }
   buttonControl(value) {
     if (value) {
       return <button>Edit</button>
@@ -126,11 +137,22 @@ class App extends Component {
       return <button type="submit">Submit</button>
     }
   }
+  onSubmitClick() {
+    this.setState(prevState => ({
+     addWork: !prevState.addWork,
+    }))
+  }
   
   render() {
       const { name, email, phone } = this.state.generalInfo;
       const { schoolName, degree, startYear, endYear } = this.state.schoolInfo;
       const { companyName, position, mainTasks, dateFrom, dateTo } = this.state.work;
+      let addMode = {}
+      if (this.state.addWork) {
+        addMode.display = 'visible';
+      } else {
+        addMode.display = 'none'
+      }
     return (
       <div className='body'>
         <div className="main">
@@ -173,19 +195,32 @@ class App extends Component {
               />
             }
             
-            <Work 
-              className="cv" 
-              allWork={this.state.allWork}
-            />
-            <WorkForm 
-              handleChangeWork={this.handleChangeWork}
-              onSubmitWork={this.handleSubmitWork}
-              companyName={companyName}
-              position={position}
-              mainTasks={mainTasks}
-              dateFrom={dateFrom}
-              dateTo={dateTo}
-            />
+            {this.state.allWork.length > 0 ? 
+              <WorkContainer 
+                allWork={this.state.allWork}
+                handleEditWork={this.handleEditWork}
+              /> : 
+              <></>
+            }
+            
+            {!this.state.addWork ? 
+            <></> : 
+              <WorkForm 
+                addMode={addMode}
+                handleChangeWork={this.handleChangeWork}
+                onSubmitWork={this.handleSubmitWork}
+                companyName={companyName}
+                position={position}
+                mainTasks={mainTasks}
+                dateFrom={dateFrom}
+                dateTo={dateTo}
+              />
+            }
+            <div className="submit-cv">
+              <button className="finish-btn" onClick={this.onSubmitClick}>
+                {this.state.addWork? 'Submit all work' : 'Add more work'}
+              </button>
+            </div>
         </div>
         <Footer className="footer"/>
       </div>
