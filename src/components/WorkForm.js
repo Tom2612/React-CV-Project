@@ -7,9 +7,9 @@ class WorkForm extends Component {
     render() {
         const { companyName, position, mainTasks, dateFrom, dateTo } = this.props;
         return (
-            <form onSubmit={this.props.onSubmitWork} className="form work--form">
+            <form onSubmit={this.props.onSubmitWork} className="form work--form" style={this.props.addMode}>
                 <div className='form-title'>
-                    <h2>Add previous work information here:</h2>
+                    <h2>Add previous work information here, starting with most current:</h2>
                 </div>
                 <div className="companyName">
                     <label>Company name</label>
@@ -65,7 +65,7 @@ class WorkForm extends Component {
                         onChange={this.props.handleChangeWork}
                     ></input>
                 </div>
-                <button className="submit-btn" type="submit">Submit section</button>
+                <button className="submit-btn" type="submit">Add work</button>
             </form>
         )
     }
